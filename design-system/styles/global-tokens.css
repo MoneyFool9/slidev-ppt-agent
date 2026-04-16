@@ -1,4 +1,6 @@
-:root {
+/* ===== Dark mode (default) ===== */
+:root,
+html.dark {
   --ppt-bg: #0B1020;
   --ppt-surface: rgba(255, 255, 255, 0.04);
   --ppt-border: rgba(255, 255, 255, 0.08);
@@ -15,6 +17,21 @@
   --ppt-section-bar-width: 3px;
 }
 
+/* ===== Light mode ===== */
+html.light {
+  --ppt-bg: #F8FAFC;
+  --ppt-surface: rgba(0, 0, 0, 0.03);
+  --ppt-border: rgba(0, 0, 0, 0.10);
+  --ppt-primary: #0D9488;
+  --ppt-secondary: #7C3AED;
+  --ppt-text: #1E293B;
+  --ppt-text-body: #475569;
+  --ppt-text-muted: #94A3B8;
+  --ppt-icon-bg: rgba(13, 148, 136, 0.10);
+  --ppt-icon-bg-secondary: rgba(124, 58, 237, 0.10);
+}
+
 html, body, #page-root {
   background: var(--ppt-bg) !important;
+  color: var(--ppt-text-body);
 }

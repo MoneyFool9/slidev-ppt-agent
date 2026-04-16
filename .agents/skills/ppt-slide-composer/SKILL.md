@@ -36,6 +36,17 @@ After outline (`outline.json`) and style plan (`style-plan.md`) are ready. This 
 - **顶部英雄式**: 顶部一张宽幅"英雄"卡片，下方是 2-4 个较小的等宽卡片网格。
 - **混合网格 (自由度最高)**: 自由混合各种尺寸的卡片，例如一个中等方块、两个小的水平矩形和一个垂直矩形。
 
+## Dark/Light Mode Compatibility (CRITICAL)
+
+Always use CSS variable names from `design-system/styles/global-tokens.css`, NEVER hardcode color hex values in slides. The design system automatically adapts to dark and light mode.
+
+- Use `var(--ppt-primary)` not `#2DD4BF`
+- Use `var(--ppt-text)` not `#FFFFFF`
+- Use `var(--ppt-surface)` not `rgba(255,255,255,0.04)`
+- Use `var(--ppt-border)` not `rgba(255,255,255,0.08)`
+
+The ONLY exception: `style` attributes in the page-template examples may show hex values for illustration. When composing real slides, always replace with `var(--ppt-xxx)`.
+
 ## 创造力原则
 
 - 范例定义设计语言底线，不定义创意上限。

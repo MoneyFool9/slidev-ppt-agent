@@ -1,6 +1,6 @@
 # Page Template: Code Showcase
 
-Design intent: Code block with line highlighting on the left, explanation card on the right. Technical credibility with clarity.
+Design intent: Code block with line highlighting on left, explanation cards on right. Uses CSS variables for dark/light mode.
 
 ```md
 ---
@@ -38,16 +38,16 @@ server.start()
 
 <div v-click class="glass-card">
   <div class="icon-box mb-3"><mdi-code-braces class="text-base" /></div>
-  <div class="font-semibold text-sm mb-2">关键步骤</div>
-  <div class="text-xs text-[#C7C9D9]">
+  <div class="font-semibold text-sm mb-2" style="color:var(--ppt-text)">关键步骤</div>
+  <div class="text-xs" style="color:var(--ppt-text-body)">
     定义 Agent 实例，配置模型和能力描述，然后绑定到 Server 启动服务。
   </div>
 </div>
 
 <div v-click class="glass-card">
   <div class="icon-box mb-3"><mdi-lightning-bolt class="text-base" /></div>
-  <div class="font-semibold text-sm mb-2">核心亮点</div>
-  <div class="text-xs text-[#C7C9D9]">
+  <div class="font-semibold text-sm mb-2" style="color:var(--ppt-text)">核心亮点</div>
+  <div class="text-xs" style="color:var(--ppt-text-body)">
     三行代码完成从定义到上线，支持流式响应。
   </div>
 </div>

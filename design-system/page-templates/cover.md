@@ -1,6 +1,6 @@
 # Page Template: Cover
 
-Design intent: Centered symmetric hierarchy with glass-morphism frame. Calm, authoritative first impression.
+Design intent: Centered symmetric hierarchy with glass-morphism frame. Calm, authoritative first impression. Uses CSS variables for dark/light mode compatibility.
 
 ```md
 ---
@@ -16,17 +16,17 @@ class: text-center
   <mdi-cube-outline class="text-xl" />
 </div>
 
-<div class="text-xs tracking-[0.2em] uppercase text-[#2DD4BF] mb-4">CATEGORY LABEL</div>
+<div class="text-xs tracking-[0.2em] uppercase" style="color:var(--ppt-primary)">CATEGORY LABEL</div>
 
 # Presentation Title
 
-<div class="text-xl text-[#2DD4BF] font-bold mt-2 mb-4">中文副标题</div>
+<div class="text-xl font-bold mt-2 mb-4" style="color:var(--ppt-primary)">中文副标题</div>
 
-<div class="w-16 h-[2px] bg-[#2DD4BF] mx-auto mb-6"></div>
+<div class="divider-line mb-6"></div>
 
-<div class="text-sm text-[#6B7280]">辅助说明文字</div>
+<div class="text-sm" style="color:var(--ppt-text-muted)">辅助说明文字</div>
 
-<div class="text-xs text-[#6B7280] mt-6 tracking-wider">2026-04-15 · DOCUMENT TYPE</div>
+<div class="text-xs mt-6 tracking-wider" style="color:var(--ppt-text-muted)">2026-04-15 · DOCUMENT TYPE</div>
 
 </div>
 

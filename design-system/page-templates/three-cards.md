@@ -1,6 +1,6 @@
 # Page Template: Three Cards
 
-Design intent: Three equal glass cards for parallel comparison. Icon-box + tag badge for categorization. Clean and scannable.
+Design intent: Three equal glass cards for parallel comparison. Uses CSS variables for dark/light mode.
 
 ```md
 ---
@@ -10,7 +10,7 @@ transition: slide-left
 <div class="section-bar">
 
 # 2. 章节标题
-<div class="text-sm text-[#C7C9D9] mt-1">副标题说明文字</div>
+<div class="text-sm mt-1" style="color:var(--ppt-text-body)">副标题说明文字</div>
 
 </div>
 
@@ -18,20 +18,20 @@ transition: slide-left
 
 <div v-click class="glass-card">
   <div class="icon-box mb-4"><mdi-check-decagram class="text-base" /></div>
-  <div class="font-semibold mb-1">卡片标题</div>
+  <div class="font-semibold mb-1" style="color:var(--ppt-text)">卡片标题</div>
   <div class="tag-badge mb-3">Category</div>
-  <ul class="text-sm text-[#C7C9D9] space-y-1 list-disc list-inside">
+  <ul class="text-sm space-y-1 list-disc list-inside" style="color:var(--ppt-text-body)">
     <li>要点一，简洁有力</li>
-    <li>要点二，结合 <strong class="text-[#2DD4BF]">关键词</strong></li>
+    <li>要点二，结合 <strong class="accent-text">关键词</strong></li>
     <li>要点三，行动导向</li>
   </ul>
 </div>
 
 <div v-click class="glass-card">
   <div class="icon-box mb-4"><mdi-account-multiple class="text-base" /></div>
-  <div class="font-semibold mb-1">卡片标题</div>
+  <div class="font-semibold mb-1" style="color:var(--ppt-text)">卡片标题</div>
   <div class="tag-badge mb-3">Category</div>
-  <ul class="text-sm text-[#C7C9D9] space-y-1 list-disc list-inside">
+  <ul class="text-sm space-y-1 list-disc list-inside" style="color:var(--ppt-text-body)">
     <li>要点一</li>
     <li>要点二</li>
     <li>要点三</li>
@@ -40,9 +40,9 @@ transition: slide-left
 
 <div v-click class="glass-card">
   <div class="icon-box mb-4"><mdi-chart-bar class="text-base" /></div>
-  <div class="font-semibold mb-1">卡片标题</div>
+  <div class="font-semibold mb-1" style="color:var(--ppt-text)">卡片标题</div>
   <div class="tag-badge mb-3">Category</div>
-  <ul class="text-sm text-[#C7C9D9] space-y-1 list-disc list-inside">
+  <ul class="text-sm space-y-1 list-disc list-inside" style="color:var(--ppt-text-body)">
     <li>要点一</li>
     <li>要点二</li>
     <li>要点三</li>

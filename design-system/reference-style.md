@@ -6,6 +6,10 @@ This specification defines the **aesthetic baseline and consistency standard**, 
 
 ## Color Palette
 
+All colors are defined as CSS custom properties in `design-system/styles/global-tokens.css` and automatically adapt to dark/light mode via `html.dark` / `html.light` selectors.
+
+### Dark Mode (default)
+
 | Role | Value | Usage |
 |------|-------|-------|
 | Background | `#0B1020` | Page background, deep navy |
@@ -16,6 +20,21 @@ This specification defines the **aesthetic baseline and consistency standard**, 
 | Text Primary | `#FFFFFF` | Main headings |
 | Text Body | `#C7C9D9` | Body text, descriptions |
 | Text Muted | `#6B7280` | Auxiliary text, timestamps |
+
+### Light Mode
+
+| Role | Value | Usage |
+|------|-------|-------|
+| Background | `#F8FAFC` | Page background, cool white |
+| Surface | `rgba(0,0,0,0.03)` | Card fill, subtle depth |
+| Border | `rgba(0,0,0,0.10)` | Card borders, clear separation |
+| Primary Accent | `#0D9488` | Deeper teal for readability on white |
+| Secondary Accent | `#7C3AED` | Deeper violet for contrast |
+| Text Primary | `#1E293B` | Dark slate headings |
+| Text Body | `#475569` | Medium slate body text |
+| Text Muted | `#94A3B8` | Light slate auxiliary text |
+
+Agent should use CSS variable names (`var(--ppt-primary)`, etc.) rather than hard-coded hex values. The mode switch is handled automatically by Slidev.
 
 ## Typography
 

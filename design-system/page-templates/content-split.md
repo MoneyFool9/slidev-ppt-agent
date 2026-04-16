@@ -1,6 +1,6 @@
 # Page Template: Content Split (Left Text + Right Diagram)
 
-Design intent: Left side stacks 2-3 content cards for narrative depth. Right side shows architecture/diagram for visual clarity.
+Design intent: Left side stacks 2-3 content cards. Right side shows diagram. Uses CSS variables for dark/light mode.
 
 ```md
 ---
@@ -19,10 +19,10 @@ transition: slide-left
 <div v-click class="glass-card">
   <div class="flex items-center gap-3 mb-3">
     <div class="icon-box"><mdi-account-group class="text-base" /></div>
-    <div class="font-semibold">要点标题</div>
+    <div class="font-semibold" style="color:var(--ppt-text)">要点标题</div>
   </div>
-  <div class="text-sm text-[#C7C9D9]">
-    由 <strong class="text-[#2DD4BF]">关键词</strong> 驱动的核心论述，
+  <div class="text-sm" style="color:var(--ppt-text-body)">
+    由 <strong class="accent-text">关键词</strong> 驱动的核心论述，
     简要阐述背景和意义。
   </div>
 </div>
@@ -30,17 +30,17 @@ transition: slide-left
 <div v-click class="glass-card">
   <div class="flex items-center gap-3 mb-3">
     <div class="icon-box"><mdi-lightbulb-outline class="text-base" /></div>
-    <div class="font-semibold">核心理念</div>
+    <div class="font-semibold" style="color:var(--ppt-text)">核心理念</div>
   </div>
-  <div class="text-sm text-[#C7C9D9]">
-    实现从"现状"向 <strong class="text-[#2DD4BF]">"目标状态"</strong> 的转变。
+  <div class="text-sm" style="color:var(--ppt-text-body)">
+    实现从"现状"向 <strong class="accent-text">"目标状态"</strong> 的转变。
   </div>
 </div>
 
 </div>
 <div>
 
-<div class="text-xs text-[#6B7280] tracking-wider mb-3">· ARCHITECTURE OVERVIEW</div>
+<div class="text-xs tracking-wider mb-3" style="color:var(--ppt-text-muted)">· ARCHITECTURE OVERVIEW</div>
 
 ```mermaid {scale: 0.5}
 graph TD
