@@ -1,82 +1,122 @@
-# Slidev PPT Agent Harness
+# slidev-ppt-agent
 
-一套 Agent 驱动的 PPT 生产编排工具。适用于 Cursor、Claude Code、Codex 或任何能读 Markdown 指令的 LLM Agent。
+一条命令，让任何 AI Agent 学会做高质量 PPT，内置预览和一键发布。
 
-## 工作方式
-
-你描述需求，Agent 自动完成全流程：调研 → 风格决策 → 大纲 → Slides 编写 → 预览 → 发布。
-
-```
-/ppt-creator 帮我做一个关于 xxx 的技术分享 PPT，受众是技术团队，在内部分享会使用
+```bash
+npx slidev-ppt-agent create my-deck
 ```
 
-## 命令
+## 它做什么
 
-| 命令 | 说明 |
-|------|------|
-| `/ppt-creator <需求描述>` | 全流程：调研 → 风格 → 大纲 → 编写 → 预览 |
-| `/ppt-review [slides文件]` | 质量审查 + 自动修复 |
-| `/ppt-publish [vercel\|github-pages]` | 发布到静态托管 |
+`slidev-ppt-agent` 脚手架化一个完整的 PPT 工作区，任何 AI Agent 都能读懂。安装后，你的 Agent（Cursor、Claude Code、Codex、opencode、codebuddy 等）将获得完整的 7 阶段 PPT 制作能力：
 
-## 架构
-
-```
-.agents/skills/          # Agent 角色技能（调研/设计/大纲/编写/预览/审查/发布）
-.cursor/rules/           # Cursor 编排规则
-design-system/           # 设计系统（token/模板/CSS/动画）
-schemas/                 # 产物格式契约（JSON Schema）
-scripts/                 # 工程辅助脚本（构建/预览/校验）
-AGENTS.md                # 跨平台 Agent 行为合约
-CLAUDE.md                # Claude Code 入口
-```
-
-## 平台支持
-
-| 平台 | 入口文件 | 触发方式 |
-|------|----------|----------|
-| Cursor | `.cursor/rules/ppt-harness-commands.mdc` | `/ppt-creator ...` |
-| Claude Code | `CLAUDE.md` → `AGENTS.md` | 自然语言或 `/ppt-creator ...` |
-| Codex / 其他 | `AGENTS.md` | 自然语言 |
+1. **澄清** -- 理解受众、场景、目标
+2. **调研** -- 多维度 WebSearch 获取事实内容
+3. **风格决策** -- 匹配设计原型和视觉 Token
+4. **大纲** -- 金字塔原理结构 + 校验
+5. **编写** -- Slidev Markdown + Bento Grid 布局
+6. **预览** -- 构建并本地启动预览
+7. **审查** -- 质量清单 + 自动修复
 
 ## 快速开始
 
+### 创建新项目
+
 ```bash
-git clone https://github.com/Rory-X/slidev-ppt-agent.git
-cd slidev-ppt-agent
-npm install
+npx slidev-ppt-agent create my-deck
+cd my-deck
 ```
 
-用 Cursor / Claude Code 打开项目，发送命令即可。
+然后在你的 AI Agent 中打开项目，说：
+
+```
+/ppt-creator 帮我做一个关于 Kubernetes 的技术分享 PPT，受众是后端工程师
+```
+
+### 注入到已有项目
+
+```bash
+cd existing-project
+npx slidev-ppt-agent init
+```
+
+## CLI 命令
+
+| 命令 | 说明 |
+|------|------|
+| `create [name]` | 创建带完整 Agent 能力的新 PPT 项目 |
+| `init` | 将能力注入到已有项目 |
+| `update` | 升级 skills 和设计系统到最新版 |
+| `build [file]` | 构建幻灯片为静态站点 |
+| `preview [file]` | 开发预览（.md 文件）或静态预览（dist/） |
+| `publish` | 构建并发布到 Vercel 或 GitHub Pages |
+
+### 发布
+
+首次发布运行引导式向导：
+
+```bash
+npx slidev-ppt-agent publish
+```
+
+```
+? 选择发布平台
+  > Vercel（推荐：全球 CDN，自动 HTTPS）
+    GitHub Pages（免费，需 GitHub 仓库）
+
+构建中... 完成
+部署中... 完成
+
+站点地址: https://my-deck.vercel.app
+后续发布只需: npx slidev-ppt-agent publish
+```
+
+首次配置后，设置保存在 `.ppt-agent.json`，后续发布一条命令搞定。
+
+## 平台支持
+
+| 平台 | 入口文件 | 发现机制 |
+|------|----------|----------|
+| Cursor | `.cursor/rules/ppt-commands.mdc` | 自动加载 |
+| Claude Code | `CLAUDE.md` -> `AGENTS.md` | 自动读取 |
+| Codex | `AGENTS.md` | 自动读取 |
+| opencode | `AGENTS.md` | 读取项目根目录 |
+| codebuddy | `AGENTS.md` | 读取项目根目录 |
+
+`AGENTS.md` 是单一事实来源，其他平台入口文件都是薄适配层。
+
+## 脚手架产出结构
+
+```
+my-deck/
+├── .agents/skills/         # 9 个 Agent 技能（调研、设计、大纲、编写等）
+├── .cursor/rules/          # Cursor 编排规则
+├── design-system/          # Token、原型、页面模板、CSS
+├── schemas/                # Agent 输出的 JSON Schema 校验
+├── scripts/                # 工程辅助脚本
+├── AGENTS.md               # 通用 Agent 入口
+├── CLAUDE.md               # Claude Code 入口
+├── .ppt-agent.json         # 项目配置（版本、发布设置）
+└── package.json            # Slidev 依赖
+```
 
 ## 设计系统
 
-基于高质量参考 PPT 提取的视觉规范，定义审美下限而非创意上限：
+内置从专业级演示文稿提取的完整设计系统：
 
-- **Token**：配色/字体/间距 (`design-system/tokens/`)
-- **叙事模板**：技术分享/路演 (`design-system/archetypes/`)
-- **页面范例**：7 种页面类型的 Slidev 代码示范 (`design-system/page-templates/`)
-- **CSS 组件**：glass-card / icon-box / section-bar / tag-badge 等 (`design-system/styles/`)
+- **原型**: `technical-share` 和 `pitch-deck` 叙事结构
+- **Token**: 调色板、字体排版、间距、动效预设
+- **页面模板**: 封面、目录、内容分栏、三卡片、代码展示、双栏详情、总结
+- **CSS 类**: `.glass-card`、`.icon-box`、`.section-bar`、`.tag-badge`、`.gradient-title`
 
-## 技能清单
+## 升级
 
-| 技能 | 职责 |
-|------|------|
-| `ppt-research` | 多维 WebSearch 深度调研 |
-| `ppt-design-director` | 风格 / archetype / token 选择 |
-| `ppt-outline-architect` | 金字塔原理大纲生成 |
-| `ppt-slide-composer` | Slidev Markdown 编写（Bento Grid 布局） |
-| `ppt-preview` | 构建与本地预览 |
-| `ppt-review` | 质量审查与自动修复 |
-| `ppt-publish` | Vercel / GitHub Pages 发布 |
-| `slidev` | Slidev 语法与溢出防护参考 |
+```bash
+npx slidev-ppt-agent update
+```
 
-## 核心原则
+安全升级 skills、设计系统、schemas 和脚本。检测用户修改，覆盖前提供备份。
 
-- **LLM 做内容**：调研、大纲、风格决策、Slides 编写全部由 Agent 完成
-- **Harness 做约束**：Skills / Rules / Schemas 告诉 Agent 该做什么、按什么标准
-- **脚本做工程**：只保留 Agent 做不了的事（构建/预览/部署/校验）
-- **设计系统定下限**：范例定义审美基线，鼓励模型发挥创造力
-
-## License
+## 许可证
 
 MIT

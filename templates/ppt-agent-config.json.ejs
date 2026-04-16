@@ -1,0 +1,22 @@
+{
+  "version": "<%= version %>",
+  "createdAt": "<%= createdAt %>",
+  "updatedAt": "<%= createdAt %>",
+  "platforms": <%- JSON.stringify(platforms) %>,
+  "publish": {
+    "defaultTarget": null,
+    "vercel": {
+      "scope": null,
+      "prod": true,
+      "projectLinked": false
+    },
+    "githubPages": {
+      "method": "actions",
+      "branch": "gh-pages"
+    }
+  },
+  "build": {
+    "outDir": "dist"
+  },
+  "fileHashes": <%- JSON.stringify(fileHashes, null, 4) %>
+}

@@ -1,0 +1,37 @@
+/* ===== Dark mode (default) ===== */
+:root,
+html.dark {
+  --ppt-bg: #0B1020;
+  --ppt-surface: rgba(255, 255, 255, 0.04);
+  --ppt-border: rgba(255, 255, 255, 0.08);
+  --ppt-radius: 14px;
+  --ppt-primary: #2DD4BF;
+  --ppt-secondary: #A78BFA;
+  --ppt-text: #FFFFFF;
+  --ppt-text-body: #C7C9D9;
+  --ppt-text-muted: #6B7280;
+  --ppt-icon-bg: rgba(45, 212, 191, 0.12);
+  --ppt-icon-bg-secondary: rgba(167, 139, 250, 0.12);
+  --ppt-card-padding: 24px 28px;
+  --ppt-card-gap: 22px;
+  --ppt-section-bar-width: 3px;
+}
+
+/* ===== Light mode ===== */
+html.light {
+  --ppt-bg: #F8FAFC;
+  --ppt-surface: rgba(0, 0, 0, 0.03);
+  --ppt-border: rgba(0, 0, 0, 0.10);
+  --ppt-primary: #0D9488;
+  --ppt-secondary: #7C3AED;
+  --ppt-text: #1E293B;
+  --ppt-text-body: #475569;
+  --ppt-text-muted: #94A3B8;
+  --ppt-icon-bg: rgba(13, 148, 136, 0.10);
+  --ppt-icon-bg-secondary: rgba(124, 58, 237, 0.10);
+}
+
+html, body, #page-root {
+  background: var(--ppt-bg) !important;
+  color: var(--ppt-text-body);
+}

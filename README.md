@@ -1,78 +1,125 @@
-# Slidev PPT Agent Harness
+# slidev-ppt-agent
 
-[中文文档](README.zh-CN.md)
+One command to give any AI agent the ability to create high-quality Slidev presentations, with built-in preview and one-click publishing.
 
-An agent-driven harness for producing high-quality Slidev presentations. Works with Cursor, Claude Code, Codex, or any LLM agent that can read markdown instructions.
-
-## How It Works
-
-You say what PPT you need. The agent handles everything: research, style decision, outline, slide composition, preview, and publishing.
-
-```
-/ppt-creator 帮我做一个关于 xxx 的技术分享 PPT，受众是技术团队，在内部分享会使用
+```bash
+npx slidev-ppt-agent create my-deck
 ```
 
-The agent follows a 7-phase pipeline, guided by skills and design system resources in this repository.
+## What It Does
 
-## Commands
+`slidev-ppt-agent` scaffolds a complete PPT workspace that any AI agent can understand. After setup, your agent (Cursor, Claude Code, Codex, opencode, codebuddy, or any AGENTS.md-compatible tool) gains a full 7-phase presentation pipeline:
+
+1. **Clarify** -- understand audience, scenario, and goal
+2. **Research** -- multi-dimensional web search for factual content
+3. **Style Decision** -- match design archetype and visual tokens
+4. **Outline** -- Pyramid Principle structure with validation
+5. **Compose** -- write Slidev markdown with Bento Grid layouts
+6. **Preview** -- build and serve locally with live URL
+7. **Review** -- quality checklist with auto-fix
+
+## Quick Start
+
+### Create a new project
+
+```bash
+npx slidev-ppt-agent create my-deck
+cd my-deck
+```
+
+Then open the project in your AI agent and say:
+
+```
+/ppt-creator 帮我做一个关于 Kubernetes 的技术分享 PPT，受众是后端工程师
+```
+
+### Inject into an existing project
+
+```bash
+cd existing-project
+npx slidev-ppt-agent init
+```
+
+## CLI Commands
 
 | Command | Description |
 |---------|-------------|
-| `/ppt-creator <requirement>` | Full pipeline: research → style → outline → compose → preview |
-| `/ppt-review [slides-file]` | Quality review checklist with auto-fix |
-| `/ppt-publish [vercel\|github-pages]` | Deploy to static hosting |
+| `create [name]` | Create a new PPT project with full agent capabilities |
+| `init` | Inject capabilities into an existing project |
+| `update` | Update skills and design system to the latest version |
+| `build [file]` | Build slides into a static site |
+| `preview [file]` | Dev preview (.md file) or static preview (dist/) |
+| `publish` | Build and publish to Vercel or GitHub Pages |
 
-## Architecture
+### Publishing
+
+First-time publish runs an interactive wizard:
+
+```bash
+npx slidev-ppt-agent publish
+```
 
 ```
-.agents/skills/          # Agent role skills (research, design, outline, compose, preview, publish, review)
-.cursor/rules/           # Cursor orchestration rule
-design-system/           # Tokens, archetypes, page templates, CSS classes
-schemas/                 # JSON Schema contracts for agent outputs
-scripts/                 # Engineering helpers (build, preview server, validation)
-AGENTS.md                # Cross-platform agent behavior contract
-CLAUDE.md                # Claude Code specific entry point
+? Where do you want to publish?
+  > Vercel (recommended: global CDN, auto HTTPS)
+    GitHub Pages (free, requires GitHub repo)
+
+Building... done
+Deploying... done
+
+Site URL: https://my-deck.vercel.app
+Next time, just run: npx slidev-ppt-agent publish
 ```
+
+After first setup, config is saved to `.ppt-agent.json` and subsequent publishes are one-command.
 
 ## Platform Support
 
-| Platform | Entry Point | Trigger |
-|----------|-------------|---------|
-| Cursor | `.cursor/rules/ppt-harness-commands.mdc` | `/ppt-creator ...` |
-| Claude Code | `CLAUDE.md` → `AGENTS.md` | Natural language or `/ppt-creator ...` |
-| Codex / Others | `AGENTS.md` | Natural language |
+| Platform | Entry Point | Discovery |
+|----------|-------------|-----------|
+| Cursor | `.cursor/rules/ppt-commands.mdc` | Auto-loaded |
+| Claude Code | `CLAUDE.md` -> `AGENTS.md` | Auto-read |
+| Codex | `AGENTS.md` | Auto-read |
+| opencode | `AGENTS.md` | Project root |
+| codebuddy | `AGENTS.md` | Project root |
 
-## Setup
+`AGENTS.md` is the single source of truth. All other platform entry points are thin adapters.
 
-```bash
-git clone https://github.com/Rory-X/slidev-ppt-agent.git
-cd slidev-ppt-agent
-npm install
+## What Gets Scaffolded
+
 ```
-
-Then open the project in your agent tool (Cursor / Claude Code / etc.) and use the commands above.
+my-deck/
+├── .agents/skills/         # 9 agent skills (research, design, outline, compose, etc.)
+├── .cursor/rules/          # Cursor orchestration rule
+├── design-system/          # Tokens, archetypes, page templates, CSS
+│   ├── archetypes/         # Narrative structures (technical-share, pitch-deck)
+│   ├── tokens/             # Color/typography/spacing tokens
+│   ├── page-templates/     # 7 Slidev code examples as design baseline
+│   └── styles/             # Glass-card, icon-box, section-bar, etc.
+├── schemas/                # JSON Schema validation for agent outputs
+├── scripts/                # Engineering helpers (preview server, validators)
+├── AGENTS.md               # Universal agent entry point
+├── CLAUDE.md               # Claude Code entry point
+├── .ppt-agent.json         # Project config (version, publish settings)
+└── package.json            # Slidev dependencies
+```
 
 ## Design System
 
-The harness includes a complete design system based on a high-quality reference PPT:
+The harness includes a complete design system extracted from professional-grade presentations:
 
-- **Tokens**: Color palettes, typography, spacing (`design-system/tokens/`)
-- **Archetypes**: Narrative structures for technical-share and pitch-deck (`design-system/archetypes/`)
-- **Page Templates**: 7 Slidev code examples as design language baseline (`design-system/page-templates/`)
-- **CSS Classes**: Glass-card, icon-box, section-bar, tag-badge, etc. (`design-system/styles/`)
+- **Archetypes**: `technical-share` and `pitch-deck` narrative structures
+- **Tokens**: Color palettes, typography, spacing, motion presets
+- **Page Templates**: Cover, TOC, content-split, three-cards, code-showcase, detail-two-col, summary
+- **CSS Classes**: `.glass-card`, `.icon-box`, `.section-bar`, `.tag-badge`, `.gradient-title`
 
-## Skills
+## Updating
 
-| Skill | Role |
-|-------|------|
-| `ppt-research` | Multi-dimensional WebSearch deep research |
-| `ppt-design-director` | Style / archetype / token selection |
-| `ppt-outline-architect` | Pyramid Principle outline generation |
-| `ppt-slide-composer` | Slidev markdown composition with Bento Grid layout |
-| `ppt-preview` | Build and local preview |
-| `ppt-review` | Quality checklist and auto-fix |
-| `ppt-publish` | Vercel / GitHub Pages deployment |
-| `slidev` | Slidev syntax and overflow reference |
+```bash
+npx slidev-ppt-agent update
+```
+
+Safely updates skills, design system, schemas, and scripts. Detects user modifications and offers backup before overwriting.
 
 ## License
 

@@ -1,23 +1,47 @@
 {
-  "name": "a2a-protocol-share",
-  "private": true,
-  "scripts": {
-    "dev": "slidev --open",
-    "dev:agent-team": "slidev --open slides-agent-team.md",
-    "dev:pitch": "slidev --open slides-pitch-demo.md",
-    "build:a2a": "slidev build slides.md --base /a2a/ --out dist/a2a",
-    "build:agent-team": "slidev build slides-agent-team.md --base /agent-team/ --out dist/agent-team",
-    "build:pitch": "slidev build slides-pitch-demo.md --base /pitch/ --out dist/pitch",
-    "build:landing": "node scripts/build-landing.js",
-    "build": "npm run build:a2a && npm run build:agent-team && npm run build:pitch && npm run build:landing",
-    "export": "slidev export",
-    "ppt:validate:outline": "node scripts/validate-outline.js",
-    "ppt:validate:style": "node scripts/validate-style.js"
+  "name": "slidev-ppt-agent",
+  "version": "0.1.0",
+  "description": "One command to give any AI agent the ability to create high-quality Slidev presentations, with built-in preview and one-click publishing.",
+  "type": "module",
+  "bin": {
+    "slidev-ppt-agent": "./bin/cli.js"
   },
+  "files": [
+    "bin/",
+    "src/",
+    "assets/",
+    "templates/"
+  ],
+  "scripts": {
+    "dev:demo": "slidev --open demo/slides.md",
+    "build:demo": "slidev build demo/slides.md --out demo/dist",
+    "lint": "node --check bin/cli.js src/**/*.js"
+  },
+  "keywords": [
+    "slidev",
+    "ppt",
+    "presentation",
+    "ai-agent",
+    "cursor",
+    "claude-code",
+    "codex",
+    "slides",
+    "deck"
+  ],
+  "author": "Rory-X",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rory-X/slidev-ppt-agent.git"
+  },
+  "homepage": "https://github.com/Rory-X/slidev-ppt-agent#readme",
   "dependencies": {
-    "@iconify-json/mdi": "^1.2.3",
-    "@slidev/cli": "^52.0.0",
-    "@slidev/theme-default": "^0.25.0",
-    "@slidev/theme-seriph": "latest"
+    "commander": "^13.0.0",
+    "ejs": "^3.1.10",
+    "fs-extra": "^11.2.0",
+    "@inquirer/prompts": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

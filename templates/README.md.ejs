@@ -1,0 +1,50 @@
+# <%= projectName %>
+
+A Slidev presentation project powered by [slidev-ppt-agent](https://github.com/Rory-X/slidev-ppt-agent).
+
+## Quick Start
+
+Open this project in your AI agent (Cursor, Claude Code, Codex, etc.) and say:
+
+```
+/ppt-creator 帮我做一个关于 xxx 的技术分享 PPT
+```
+
+The agent handles everything: research, style, outline, composition, preview, and publishing.
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/ppt-creator <requirement>` | Full pipeline: research -> style -> outline -> compose -> preview |
+| `/ppt-review [slides-file]` | Quality review with auto-fix |
+| `/ppt-publish [vercel\|github-pages]` | Deploy to static hosting |
+
+## Manual Usage
+
+```bash
+# Preview a slides file
+npx slidev slides-topic.md
+
+# Build static site
+npx slidev build slides-topic.md --out dist
+
+# Local static preview
+node scripts/static-preview-server.js --dir=dist --port=3045
+```
+
+## Project Structure
+
+```
+├── .agents/skills/       # Agent skills (research, design, outline, compose, etc.)
+├── design-system/        # Tokens, archetypes, page templates, CSS
+├── schemas/              # JSON Schema validation
+├── scripts/              # Engineering helpers
+├── artifacts/            # Generated intermediate files
+├── AGENTS.md             # Universal agent entry point
+└── slides-*.md           # Your presentations
+```
+
+## License
+
+MIT
